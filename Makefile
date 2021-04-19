@@ -76,6 +76,23 @@ cargo_test:
 
 #----------------------------------------------------------------------------------------------
 
+BENCHMARK_ARGS = redisbench-admin run-local
+
+ifneq ($(REMOTE),)
+	BENCHMARK_ARGS = redisbench-admin run-remote
+endif
+
+BENCHMARK_ARGS += --module_path $(realpath $(TARGET))
+ifneq ($(BENCHMARK),)
+	BENCHMARK_ARGS += --test $(BENCHMARK)
+endif
+
+
+benchmark: $(TARGET)
+	cd ./tests/benchmarks; $(BENCHMARK_ARGS) ; cd ../../
+
+#----------------------------------------------------------------------------------------------
+
 package:
 	$(MAKE) -C ./src package
 

@@ -1,0 +1,31 @@
+version: 0.2
+name: "json_get_array_of_docs_pass_100_json"
+description: "JSON.GET {key} array_of_docs || {Full document: pass-100.json https://oss.redislabs.com/redisjson/performance/"
+remote:
+ - type: oss-standalone
+ - setup: redisearch-m5d
+dbconfig:
+  - dataset: "https://s3.amazonaws.com/benchmarks.redislabs/redisjson/performance.docs/fulldoc_pass_100_json.rdb"
+clientconfig:
+  - tool: redis-benchmark
+  - min-tool-version: "6.2.0"
+  - parameters:
+    - clients: 16
+    - requests: 2000000
+    - threads: 2
+    - pipeline: 1
+    - command: 'JSON.GET {key} array_of_docs'
+exporter:
+  redistimeseries:
+    break_by:
+      - version
+      - commit
+    timemetric: "$.StartTime"
+    metrics:
+      - "$.Tests.Overall.rps"
+      - "$.Tests.Overall.avg_latency_ms"
+      - "$.Tests.Overall.p50_latency_ms"
+      - "$.Tests.Overall.p95_latency_ms"
+      - "$.Tests.Overall.p99_latency_ms"
+      - "$.Tests.Overall.max_latency_ms"
+      - "$.Tests.Overall.min_latency_ms"
