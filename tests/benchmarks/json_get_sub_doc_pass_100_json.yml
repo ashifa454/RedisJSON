@@ -5,7 +5,7 @@ remote:
  - type: oss-standalone
  - setup: redisearch-m5d
 dbconfig:
-  - dataset: "https://s3.amazonaws.com/benchmarks.redislabs/redisjson/performance.docs/fulldoc_pass_100_json.rdb"
+  - dataset: "https://s3.amazonaws.com/benchmarks.redislabs/redisjson/performance.docs/performance.docs.rdb"
 clientconfig:
   - tool: redis-benchmark
   - min-tool-version: "6.2.0"
